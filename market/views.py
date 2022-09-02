@@ -93,5 +93,5 @@ def delete_product(request, product_id):
 def product_data_update(request, product_id):
     obj = get_object_or_404(Product, pk=product_id)
     update_product_data(obj, product_details(obj.product_id))
-    messages.warning(request, "Datos del producto actualizado.")
+    messages.info(request, "Datos del producto actualizado.")
     return redirect(reverse("market:table_view"))
