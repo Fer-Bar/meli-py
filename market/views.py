@@ -1,4 +1,4 @@
-from market.functions import product_details
+from market.functions import product_details, update_product_data
 from django.views import generic
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from .forms import SellerForm, ProductForm
@@ -31,6 +31,7 @@ class TableView(generic.ListView):
     
     def dispatch(self, request, *args, **kwargs):
         for obj in self.queryset:
+            update_product_data(obj, product_details(obj.product_id))
             obj.email_notify()     
         return super().dispatch(request, *args, **kwargs)
     

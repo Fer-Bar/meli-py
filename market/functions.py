@@ -2,7 +2,6 @@ import requests
 from typing import Any
 
 
-
 def get_product_id(nickname: str, BASE_URL: str ='https://api.mercadolibre.com', 
                    site_id: str = 'MLA', offset: int = 0, limit: int = 50)-> list[str]:
     """Get the product ID from the vendor nickname
@@ -51,3 +50,11 @@ def product_details(product_id: str, BASE_URL: str ='https://api.mercadolibre.co
         return item_list
     return None
 
+def update_product_data(obj, item_details):
+    obj.base_price = item_details[0]['base_price']
+    obj.discount_ammount = item_details[0]['discount_ammount']
+    obj.discount_percent = item_details[0]['discount_percent']
+    if not obj.raise_alert(): 
+        obj.fault_date = None
+    obj.save()
+    print('Data Updated Success')
