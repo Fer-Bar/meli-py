@@ -30,10 +30,11 @@ class TableView(generic.ListView):
     context_object_name = 'items_data'
     
     def dispatch(self, request, *args, **kwargs):
-        for obj in self.queryset:
-            update_product_data(obj, product_details(obj.product_id))
-            obj.email_notify()     
-        return super().dispatch(request, *args, **kwargs)
+        if len(self.queryset) >= 1:
+            for obj in self.queryset:
+                update_product_data(obj, product_details(obj.product_id))
+                obj.email_notify()     
+            return super().dispatch(request, *args, **kwargs)
     
 class SellerView(generic.ListView):
     template_name = 'market/sellers.html'
