@@ -71,7 +71,7 @@ def create_product(request):
 @login_required
 def update_product(request, product_id):
     obj = get_object_or_404(Product, pk=product_id)
-    if request.method == "POST":
+    if request.method == "POST" and obj:
         product_form = ProductForm(request.POST or None, instance = obj)
         if product_form.is_valid():
             product_form.save()
@@ -86,6 +86,7 @@ def update_product(request, product_id):
 @login_required
 def delete_product(request, product_id):
     obj = get_object_or_404(Product, pk=product_id)
-    obj.delete()
-    messages.warning(request, "Producto eliminado.")
+    if obj:
+        obj.delete()
+        messages.warning(request, "Producto eliminado.")
     return redirect(reverse("market:table_view"))
