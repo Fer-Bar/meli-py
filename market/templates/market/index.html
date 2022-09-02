@@ -1,0 +1,19 @@
+{% extends 'market/base.html' %}
+{% block title %}Home Page{% endblock %}
+{% block content %}
+<div class="card">
+  <br>
+  <h3 class="card-title text-center">Productos y Vendedores</h3>
+  <div class="card-body">
+      <br>
+      <h5 class='text-left'>Bienvenido Supervisor: {{user.username}}</h5>
+      <div class="list-group">
+        <a href="{% url 'market:sellers'%}" class="list-group-item list-group-item-action">Lista de los Vendedores</a>
+        <a href="{% url 'market:table_view' %}" class="list-group-item list-group-item-action">Lista de los Productos</a>
+      </div>
+      <div class="text-center p-4" style="   width: 100% !important; margin-top:8.3rem; ">
+          Copyright © Brandproteccion 2022
+      </div>
+    </div>
+
+{% endblock %}

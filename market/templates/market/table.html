@@ -1,0 +1,59 @@
+{% extends 'market/base.html' %}
+{% block title %}Product Table{% endblock %}
+{% block content %}
+<div class="container-fluids">
+  <table border="2" class="table table-bordered table-striped table-hover">
+    <thead style="color:white; background:gray; text-align:center;">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Vendedor</th>
+        <th scope="col">Vendedor ID</th>
+        <th scope="col">Título</th>
+        <th scope="col">Marca</th>
+        <th scope="col">Producto ID</th>
+        <th scope="col">Precio Original</th>
+        <th scope="col">Precio Base Base</th>
+        <th scope="col">PPV</th>
+        <th scope="col">Cantidad de Descuento</th>
+        <th scope="col">Porcentaje Descuento(%)</th>
+        <th scope="col">Descuento Permitido por la Marca(%)</th>
+        <th scope="col">Alertas</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody style=" text-align:center; color:white; background:gray;">
+      {% for item in items_data %}
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{item.seller_fk}}</td>
+          <td>{{item.sellerid}}</td>
+          <td>{{item.title}}</td>
+          <td>{{item.brand}}</td>
+          <td>{{item.product_id}}</td>
+          <td>{{item.original_price}}</td>
+          <td>{{item.base_price}}</td>
+          <td>{{item.ppv}}</td>
+          <td>{{item.discount_ammount}}</td>
+          <td>{{item.discount_percent}}</td>
+          <td>{{item.brand_discount_allow}}</td>
+          {% if item.raise_alert %}
+            <td class="table-danger">Esta por encima del permitido</td>
+          {% else %}
+            <td class="table-info">Esta por debajo del permitido</td>
+          {% endif %}
+          <td>
+            <div class="btn-group">
+              <a class="btn btn-primary" href="{% url 'market:update_product' item.id %}">
+                Editar
+              </a>
+              <a class="btn btn-danger" href="{% url 'market:delete_product' item.id %}">
+                Borrar
+              </a>
+            </div>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

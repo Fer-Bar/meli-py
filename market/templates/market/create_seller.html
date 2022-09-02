@@ -1,0 +1,15 @@
+{% extends 'market/base.html' %}
+{% block title %}Create Seller{% endblock %}
+{% block content %}
+
+{% load crispy_forms_tags %}  
+  
+  <div class="container">
+    <h2 class="my-4 text-center">Add a new seller</h2>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+          {{seller_form|crispy}}
+          <button class="btn btn-primary my-4" type="submit">Submit</button>
+    </form>
+  </div>
+{% endblock %}
