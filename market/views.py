@@ -1,10 +1,4 @@
-from calendar import c
-from rest_framework.decorators import api_view, renderer_classes
-from rest_framework.renderers import JSONRenderer
-from rest_framework.response import Response
-from market.serializers import ItemSerializer
-from market.functions import get_product_id, product_details
-from rest_framework import status
+from market.functions import product_details
 from django.views import generic
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from .forms import SellerForm, ProductForm
@@ -12,12 +6,6 @@ from .models import Product, Seller
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-@api_view(['GET'])
-@renderer_classes([JSONRenderer])   
-def item_details(request, nickname):
-    item_data = product_details(get_product_id(nickname))
-    serializer = ItemSerializer(item_data, many=True).data
-    return Response(serializer, status=status.HTTP_200_OK)
 
 def index_page(request):
     return render(request, 'market/index.html', {})
