@@ -32,9 +32,8 @@ class TableView(generic.ListView):
     def dispatch(self, request, *args, **kwargs):
         if len(self.queryset) >= 1:
             for obj in self.queryset:
-                update_product_data(obj, product_details(obj.product_id))
                 obj.email_notify()     
-            return super().dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
     
 class SellerView(generic.ListView):
     template_name = 'market/sellers.html'
@@ -86,7 +85,13 @@ def update_product(request, product_id):
 @login_required
 def delete_product(request, product_id):
     obj = get_object_or_404(Product, pk=product_id)
-    if obj:
-        obj.delete()
-        messages.warning(request, "Producto eliminado.")
+    obj.delete()
+    messages.warning(request, "Producto eliminado.")
+    return redirect(reverse("market:table_view"))
+
+@login_required
+def product_data_update(request, product_id):
+    obj = get_object_or_404(Product, pk=product_id)
+    update_product_data(obj, product_details(obj.product_id))
+    messages.warning(request, "Datos del producto actualizado.")
     return redirect(reverse("market:table_view"))

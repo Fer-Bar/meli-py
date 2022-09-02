@@ -29,7 +29,7 @@ class Product(models.Model):
     original_price = models.IntegerField(null=True)
     discount_ammount = models.IntegerField(null=True)
     discount_percent = models.FloatField(null=True)
-    fault_date = models.DateTimeField(null=True)    
+    fault_date = models.DateTimeField(blank=True, null=True)    
     created = models.DateTimeField(auto_now_add = True)
     modified = models.DateTimeField(auto_now = True)
     
